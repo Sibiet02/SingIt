@@ -3,7 +3,11 @@
 "Sing It!" is the perfect app for singers that want to improve their pitch and breathing techniques.
 
 ---
+##  Screenshots
+![Simulator Screenshot - iPhone 16 Pro - 2024-12-18 at 14 14 35](https://github.com/user-attachments/assets/db1bd343-e3cc-4907-908a-9c5b268cf000)
+![Simulator Screenshot - iPhone 16 Pro - 2024-12-18 at 14 14 28](https://github.com/user-attachments/assets/2de5594a-0bad-4d83-a902-241733fc308e)
 
+---
 ## Main Features
 
 - **Integrated Piano**: compare the notes sung by the user for greater accuracy.
