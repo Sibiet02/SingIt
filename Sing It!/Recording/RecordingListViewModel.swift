@@ -14,7 +14,7 @@ class RecordingListViewModel: ObservableObject {
                 Recording(id: UUID(), fileURL: $0, createdAt: fetchCreationDate(for: $0))
             }.sorted(by: { $0.createdAt > $1.createdAt })
         } catch {
-            print("Errore durante il caricamento delle registrazioni: \(error)")
+            print("Error fetching recordings: \(error)")
         }
     }
     

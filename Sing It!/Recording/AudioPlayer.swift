@@ -13,7 +13,7 @@ class AudioPlayer: NSObject, ObservableObject {
             audioPlayer?.play()
             isPlaying = true
         } catch {
-            print("Errore nella riproduzione dell'audio: \(error)")
+            print("Error setting up recording session: \(error)")
         }
     }
 

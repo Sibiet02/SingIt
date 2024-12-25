@@ -65,7 +65,7 @@ struct RecordingListView: View {
                 try FileManager.default.removeItem(at: recording.fileURL)
                 viewModel.recordings.remove(at: index) 
             } catch {
-                print("Errore durante l'eliminazione della registrazione: \(error)")
+                print("Error recording deletion: \(error)")
             }
         }
     }
