@@ -1,43 +1,50 @@
+//
+//  QuizModal.swift
+//  Sing It!
+//
+//  Created by Silvia Esposito on 20/05/25.
+//
+
 import SwiftUI
 
-struct BreathingModal: View {
+struct QuizModal: View {
     @Binding var isPresented: Bool
     @Environment(\.colorScheme) var colorScheme
-
+    
     var body: some View {
         VStack(spacing: 20) {
             Spacer()
 
            
-            Text("Are you ready to practice your breathing?")
+            Text("Ear Training Quiz")
                 .font(.largeTitle)
                 .bold()
                 .multilineTextAlignment(.center)
                 .padding(.bottom, 70)
 
             
-            BreathingModalItemView(
-                icon: Image(systemName: "books.vertical"),
+            QuizModalItemView(
+                icon: Image(systemName: "ear.badge.waveform"),
                 iconColor: .red,
-                title: "First step",
-                description: "Take a couple of books from your library."
+                title: "Goal",
+                description: "Train your musical ear by identifying notes with accuracy."
             )
             .padding(.bottom, 20)
 
             
-            BreathingModalItemView(
-                icon: Image(systemName: "bed.double"),
+            QuizModalItemView(
+                icon: Image(systemName: "play.circle"),
                 iconColor: .red,
-                title: "Second step",
-                description: "Lie on your back and place the books on your abdomen."
+                title: "How it works",
+                description: "Listen to a note and choose the correct one from four options. You can replay the sound as many times as needed."
             )
             .padding(.bottom, 20)
             
-            BreathingModalItemView(
-                icon: Image(systemName: "wind"),
+            QuizModalItemView(
+                icon: Image(systemName: "medal"),
                 iconColor: .red,
-                title: "Third step",
-                description: "Breathe deeply with your abdomen, aiming to move the books up and down."
+                title: "Challenge Yourself",
+                description: "You’ll face 10 questions. Each correct answer boosts your score—aim for a perfect run!"
             )
             .padding(.bottom, 20)
             
@@ -46,15 +53,14 @@ struct BreathingModal: View {
             
             Button(action: {
                 isPresented = false
-                UserDefaults.standard.set(true, forKey: "hasBreathingModal")
-            })
-            {
-                Text("Start Breathing")
+                UserDefaults.standard.set(true, forKey: "hasSeenQuizModal")
+            }) {
+                Text("Start")
                     .font(.headline)
-                    .foregroundColor(colorScheme == .dark ? .black : .white)
+                    .foregroundColor(colorScheme == .dark ? Color.black : Color.white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(colorScheme == .dark ? .white : .black)
+                    .background(colorScheme == .dark ? Color.white : Color.black)
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
             }
@@ -63,13 +69,13 @@ struct BreathingModal: View {
     }
 }
 
-struct BreathingModalItemView: View {
+struct QuizModalItemView: View {
     let icon: Image
     let iconColor: Color
     let title: String
     let description: String
     @Environment(\.colorScheme) var colorScheme
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
             
@@ -86,7 +92,7 @@ struct BreathingModalItemView: View {
                     .bold()
                 Text(description)
                     .font(.subheadline)
-                    .foregroundColor(colorScheme == .dark ? .white : .secondary)
+                    .foregroundColor(colorScheme == .dark ? Color.white : Color.secondary)
             }
 
             Spacer()
@@ -95,5 +101,6 @@ struct BreathingModalItemView: View {
     }
 }
 #Preview {
-    BreathingModal(isPresented: .constant(true))
+    QuizModal(isPresented: .constant(true))
 }
+

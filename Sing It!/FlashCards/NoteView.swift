@@ -3,6 +3,7 @@ import SwiftUI
 struct NoteFlashcardView: View {
     let notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "C5"]
     @State private var currentNote = "C"
+    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
         VStack {
@@ -10,14 +11,15 @@ struct NoteFlashcardView: View {
             ZStack {
                 
                 RoundedRectangle(cornerRadius: 20)
-                    .fill(Color.white)
+                    .fill(colorScheme == .dark ? .gray.opacity(0.9) : .white)
                     .frame(width: 300, height: 200)
                     .shadow(color: .gray.opacity(0.5), radius: 10)
                 
            
                 Text(currentNote)
                     .font(.largeTitle)
-                    .foregroundColor(.red)
+                    .bold()
+                    .foregroundColor(.red.opacity(0.9))
             }
             
             
@@ -27,15 +29,15 @@ struct NoteFlashcardView: View {
             }, label: {
                 Image(systemName: "shuffle.circle")
                     .resizable()
+                    .bold()
                     .scaledToFit()
                     .frame(width: 30, height: 30)
-                    .foregroundColor(.red)
+                    .foregroundColor(.red.opacity(0.9))
                     .padding()
             })
             .accessibilityLabel("shuffle")
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
         .ignoresSafeArea()
     }
 }

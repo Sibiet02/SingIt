@@ -21,7 +21,7 @@ struct PianoKeyView: View {
             playSound()
         }) {
             Rectangle()
-                .fill(isPressed ? (isBlack ? Color.gray : Color.blue) : (isBlack ? Color.black : Color.white))
+                .fill(isPressed ? (isBlack ? Color.gray : Color.red) : (isBlack ? Color.black : Color.white))
                 .frame(width: isBlack ? 30 : 50, height: isBlack ? 120 : 200)
                 .overlay(
                     Rectangle()

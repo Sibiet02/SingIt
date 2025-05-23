@@ -12,7 +12,6 @@ struct Breathing: View {
     
     var body: some View {
         VStack {
-           
             Text(inhaling ? "Breath In" : "Breath Out")
                 .font(.largeTitle)
                 .fontWeight(.bold)

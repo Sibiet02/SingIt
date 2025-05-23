@@ -11,21 +11,22 @@ import Combine
 struct Piano: View {
     @ObservedObject var audio: AudioRecorder
     @State private var selectedNote: String = ""
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
             
         NavigationView {
             ZStack {
-                Color.white.ignoresSafeArea()
-                
                 VStack {
                     HStack {
                         Spacer()
                         NavigationLink(destination: RecordingListView()) {
                             Image(systemName: "music.note.list")
                                 .resizable()
+                                .bold()
                                 .scaledToFit()
-                                .frame(width: 30, height: 30)
-                                .foregroundColor(.red)
+                                .frame(width: 25, height: 25)
+                                .foregroundColor(.red.opacity(0.9))
                         }
                         .accessibilityLabel("Recording List")
                     }
@@ -35,7 +36,7 @@ struct Piano: View {
                     Text("Sing it!")
                         .font(.largeTitle)
                         .bold()
-                        .foregroundStyle(.black)
+                        .foregroundStyle(colorScheme == .dark ? .white : .black)
                     
                     NoteFlashcardView()
                     
@@ -55,14 +56,15 @@ struct Piano: View {
                             VStack {
                                 Image(systemName: "mic.circle.fill")
                                     .resizable()
+                                    .bold()
                                     .scaledToFit()
-                                    .foregroundColor(audio.recording ? .red : .black)
+                                    .foregroundColor(audio.recording ? .red.opacity(0.9) : (colorScheme == .dark ? .white : .black))
                                     .frame(width: 45, height: 45)
                                 
                                 Text(audio.recording ? "Stop Recording" : "Start Recording")
                                     .font(.caption)
                                     .bold()
-                                    .foregroundColor(audio.recording ? .red : .black)
+                                    .foregroundColor(audio.recording ? .red.opacity(0.9) : (colorScheme == .dark ? .white : .black))
                             }
                                }
                             }

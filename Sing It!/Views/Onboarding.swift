@@ -2,15 +2,16 @@ import SwiftUI
 
 struct OnboardingModalView: View {
     @Binding var isPresented: Bool
-
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 15) {
             Spacer()
 
             Text("Welcome to Sing It!")
                 .font(.largeTitle)
                 .bold()
-                .padding(.bottom, 70)
+                .padding(.bottom, 40)
             
             OnboardingItemView(
                 icon: Image(systemName: "music.note"),
@@ -37,6 +38,14 @@ struct OnboardingModalView: View {
             )
             .padding(.bottom, 20)
             
+            OnboardingItemView(
+                icon: Image(systemName: "bell.and.waves.left.and.right.fill"),
+                iconColor: .red,
+                title: "Sound on",
+                description: "Make sure your iPhone isn’t on silent mode to hear the sound properly."
+            )
+            .padding(.bottom, 20)
+            
             Spacer()
 
             Button(action: {
@@ -45,10 +54,10 @@ struct OnboardingModalView: View {
             }) {
                 Text("Next")
                     .font(.headline)
-                    .foregroundColor(.white)
+                    .foregroundColor(colorScheme == .dark ? .black : .white)
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color.black)
+                    .background(colorScheme == .dark ? .white : .black)
                     .cornerRadius(10)
                     .padding(.horizontal, 20)
             }
@@ -62,7 +71,8 @@ struct OnboardingItemView: View {
     let iconColor: Color
     let title: String
     let description: String
-
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
 
@@ -79,7 +89,7 @@ struct OnboardingItemView: View {
                     .bold()
                 Text(description)
                     .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .foregroundColor(colorScheme == .dark ? .white : .secondary)
             }
 
             Spacer()
