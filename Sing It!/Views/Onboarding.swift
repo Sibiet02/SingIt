@@ -17,7 +17,7 @@ struct OnboardingModalView: View {
                 icon: Image(systemName: "music.note"),
                 iconColor: .red,
                 title: "Find your note",
-                description: "Improve your pitch by practicing with the piano and checking the accuracy of your voice."
+                description: "Improve your pitch by practicing with the piano."
             )
             .padding(.bottom, 20)
 
