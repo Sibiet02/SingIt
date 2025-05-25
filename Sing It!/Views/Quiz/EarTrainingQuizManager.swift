@@ -1,7 +1,6 @@
 import Foundation
 import AVFoundation
 
-
 class EarTrainingQuizManager: ObservableObject {
     @Published var currentQuestion: EarTrainingQuestion?
     @Published var score = 0
@@ -73,5 +72,13 @@ class EarTrainingQuizManager: ObservableObject {
         questionIndex = 0
         generateQuestions()
         nextQuestion()
+    }
+
+    var currentQuestionNumber: Int {
+        return questionIndex
+    }
+
+    var totalQuestions: Int {
+        return questions.count
     }
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Silvia Esposito on 20/05/25.
 //
-
 import SwiftUI
 import AVFoundation
 
@@ -12,6 +11,8 @@ struct EarTrainingQuizView: View {
     @StateObject private var quiz = EarTrainingQuizManager()
     @State private var feedback: String?
     @State private var selectedAnswer: String?
+    @State private var showExitConfirmation = false
+    @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
@@ -20,21 +21,34 @@ struct EarTrainingQuizView: View {
                 .font(.largeTitle)
                 .bold()
                 .multilineTextAlignment(.center)
-                .padding(.top, 60)
+                .padding(.top, 10)
+            
+            if quiz.currentQuestion != nil {
+                Text("Question \(quiz.currentQuestionNumber)/\(quiz.totalQuestions)")
+                    .font(.title3)
+                    .foregroundColor(colorScheme == .dark ? .white : .secondary)
+            }
+            
+            if quiz.currentQuestion != nil {
+                Text("Score: \(quiz.score)")
+                    .font(.title3)
+                    .foregroundColor(colorScheme == .dark ? .white : .secondary)
+            }
 
-            Spacer(minLength: 15)
 
             if let question = quiz.currentQuestion {
                 Button {
                     quiz.playCurrentNote()
                 } label: {
                     Label("Play Note", systemImage: "play.circle.fill")
+                        .accessibilityHidden(true)
                         .font(.title2)
                         .foregroundColor(colorScheme == .dark ? .black : .white)
                         .padding()
                         .frame(maxWidth: .infinity)
                         .background(colorScheme == .dark ? .white : .black)
                         .cornerRadius(12)
+                        .padding(.top, 40)
                 }
 
                 VStack(spacing: 16) {
@@ -69,11 +83,6 @@ struct EarTrainingQuizView: View {
                         .padding(.top, 10)
                 }
 
-                Text("Score: \(quiz.score)")
-                    .font(.subheadline)
-                    .foregroundColor(colorScheme == .dark ? .white : .secondary)
-                    .padding(.top, 10)
-
             } else {
                 Text("Quiz completed")
                     .font(.title2)
@@ -102,10 +111,28 @@ struct EarTrainingQuizView: View {
             Spacer(minLength: 40)
         }
         .padding()
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    showExitConfirmation = true
+                }) {
+                    Label("Back", systemImage: "chevron.left")
+                        .labelStyle(.titleAndIcon)
+                }
+            }
+        }
+        .alert("Are you sure to exit?", isPresented: $showExitConfirmation) {
+            Button("Yes, Exit", role: .destructive) {
+                dismiss()
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("If you exit now you'll lose all your progress.")
+        }
         .animation(.easeInOut, value: quiz.currentQuestion)
     }
 
-    // MARK: - Colore dinamico del bottone
     func backgroundColor(for option: String, correctAnswer: String) -> Color {
         if let selected = selectedAnswer {
             if option == correctAnswer {
@@ -117,7 +144,6 @@ struct EarTrainingQuizView: View {
         return colorScheme == .dark ? Color.white.opacity(0.5) : Color.gray.opacity(0.2)
     }
 
-    // MARK: - Messaggio finale motivazionale
     var finalMessage: String {
         switch quiz.score {
         case 0...3:
@@ -133,7 +159,6 @@ struct EarTrainingQuizView: View {
         }
     }
 }
-
 
 #Preview {
     EarTrainingQuizView()
